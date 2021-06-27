@@ -1,0 +1,15 @@
+pipeline{
+    agent any
+    stages{
+        stage('SCM Checkout'){
+            steps{
+                git 'https://github.com/kiru729/myapp-ansible'
+            }
+        }
+        stage('Run Ansible Playbook'){
+            steps{
+                ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'dev.inv', playbook: 'apache.yml'
+            }
+        }
+    }
+}
